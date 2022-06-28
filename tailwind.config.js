@@ -17,6 +17,13 @@ module.exports = {
       '4': '2rem',
       '5': '2.5rem',
       '6': '3rem',
+      '7': '4rem',
+      '8': '8rem',
+      '9': '9rem',
+      '10': '10rem',
+      '11': '15rem',
+      '12': '20rem',
+      '13': '25rem',
     },
     extend: {
       fontFamily:{
