@@ -1,9 +1,16 @@
 import './App.css';
+import Sidebar from './components/Sidebar/Sidebar';
+import Feed from './components/Feed/Feed';
+import Widgets from './components/Widgets/Widgets';
 
 function App() {
   return (
     <>
-      c0nn3ct3d      
+      <div className='flex flex-row bg-black text-white' >
+        <Sidebar/>
+        <Feed />
+        <Widgets />  
+      </div>    
     </>
   );
 }
