@@ -9,6 +9,7 @@ module.exports = {
       md: '768px',
       lg: '976px',
       xl: '1440px',
+      xxl: '1536px',
     },
     spacing: {
       '1': '.5rem',
@@ -51,7 +52,10 @@ module.exports = {
       'gray': '#8492a6',
       'gray-light': '#d3dce6',
       'black': '#000000',
+      'blackish': '#0e1111',
     },
   },
-  plugins: [],
+  plugins: [
+    require('tailwind-scrollbar-hide')
+  ],
 }
