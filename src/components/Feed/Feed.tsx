@@ -7,7 +7,7 @@ import { AiOutlineFileGif } from 'react-icons/ai'
 const Feed = () => {
   return (
     <div className='flex-col w-3/5 overscroll-auto'>
-        <div className='flex flex-row p-1 pt-3 pr-2 pl-2'>
+        <div className='flex flex-row p-1 pt-3 pr-3 pl-3'>
             <img className='border border-gray-dark rounded-3xl w-7 h-7' alt='profilepic' src={Turnt}></img>
             <div className='flex flex-col pl-1'>
               <div>Off2Eth</div>
