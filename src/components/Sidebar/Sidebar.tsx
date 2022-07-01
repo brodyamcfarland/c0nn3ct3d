@@ -32,7 +32,7 @@ const Sidebar = () => {
           <span className='text-xl p-1'><GiSpikedHalo/></span>
           Soulbound
         </div>
-        <div className='flex flex-row pt-10'>
+        <div className='flex flex-row pt-4'>
             <img className='border border-gray-dark rounded-3xl w-7 h-7' alt='profilepic' src={Turnt}></img>
             <div className='flex flex-col pl-1'>
               <div>Off2Eth</div>

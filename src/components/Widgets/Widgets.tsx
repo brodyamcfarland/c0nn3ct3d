@@ -13,7 +13,7 @@ const Widgets = () => {
         </form>
         <div className='bg-blackish border border-gray-dark rounded-2xl p-2 mt-2'>
           <p className=''>Already have a Soulbound Account?</p>
-          <p className='text-gray pt-2'>Make sure you are logged into the correct MetaMask account that has the Soul-bound token obtained from the <a className='text-white' target='_blank' href='https://brodyamcfarland.github.io/Soulbound/'>"Soulbound"</a> app and click on the <a className='underline'>Connect Button</a></p>
+          <p className='text-gray pt-2'>Make sure you are logged into the correct MetaMask account that has the Soul-bound token obtained from the <a className='text-white hover:text-gray' target='_blank' href='https://brodyamcfarland.github.io/Soulbound/'>"Soulbound"</a> app and click on the <a className='underline'>Connect Button</a></p>
           <p className='text-gray text-sm pt-2'><a className='underline'>Note</a>: Make sure you are connected to Rinkeby Ethereum Test Network</p>
         </div>
         <div className='bg-blackish border border-gray-dark rounded-2xl p-2 mt-2'>

@@ -41,9 +41,9 @@ const Footer : React.FC = () => {
             <span className='pt-[5px] text-gray'>$ {coins.ethereum.usd}</span>
             <span className='text-sm pl-1 text-[#5e5e5e]'>{ethdaily}%</span>
           </span>
-          <a className='' href='/' target='_blank'>Soulbound</a>
-          <a className='' href='/' target='_blank'>Github</a>
-          <a className='' href='/' target='_blank'>About</a>
+          <a className='text-gray hover:text-white' href='https://brodyamcfarland.github.io/Soulbound/' target='_blank' rel="noreferrer">Soulbound</a>
+          <a className='text-gray hover:text-white' href='https://github.com/brodyamcfarland' target='_blank' rel="noreferrer">Github</a>
+          <a className='text-gray hover:text-white' href='/' target='_blank' rel="noreferrer">About</a>
       </div>
     </>
   )
