@@ -2,9 +2,17 @@ import React from 'react'
 import Turnt from '../../images/Turnt.PNG';
 import { HiOutlinePhotograph } from 'react-icons/hi'
 import { AiOutlineFileGif } from 'react-icons/ai'
+interface Props {
+  account: string;
+}
+declare global {
+  interface Window {
+    ethereum: any;
+    web3: any;
+  }
+}
 
-
-const Feed = () => {
+const Feed = ({account}: Props) => {
   return (
     <div className='flex-col w-3/5 overscroll-auto'>
         <div className='flex flex-row p-1 pt-3 pr-3 pl-3'>

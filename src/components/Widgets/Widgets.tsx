@@ -1,9 +1,6 @@
 
 import { AiOutlineSearch } from 'react-icons/ai';
 
-//TODO
-//1) Provide Link to Soulbound
-
 const Widgets = () => {
   return (
     <div className='flex flex-col w-1/5 p-3 border-l-[1px] border-gray-dark'>
@@ -13,7 +10,7 @@ const Widgets = () => {
         </form>
         <div className='bg-blackish border border-gray-dark rounded-2xl p-2 mt-2'>
           <p className=''>Already have a Soulbound Account?</p>
-          <p className='text-gray pt-2'>Make sure you are logged into the correct MetaMask account that has the Soul-bound token obtained from the <a className='text-white hover:text-gray' target='_blank' href='https://brodyamcfarland.github.io/Soulbound/'>"Soulbound"</a> app and click on the <a className='underline'>Connect Button</a></p>
+          <p className='text-gray pt-2'>Make sure you are logged into the correct MetaMask account that has the Soul-bound token obtained from the <a rel="noreferrer" className='text-white hover:text-gray' target='_blank' href='https://brodyamcfarland.github.io/Soulbound/'>"Soulbound"</a> app and click on the <a className='underline'>Connect Button</a></p>
           <p className='text-gray text-sm pt-2'><a className='underline'>Note</a>: Make sure you are connected to Rinkeby Ethereum Test Network</p>
         </div>
         <div className='bg-blackish border border-gray-dark rounded-2xl p-2 mt-2'>
