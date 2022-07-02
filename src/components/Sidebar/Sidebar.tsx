@@ -60,11 +60,11 @@ const Sidebar = ({account, setAccount}: Props) => {
           <span className='text-xl p-1'><GiSpikedHalo/></span>
           Soulbound
         </div>
-        <div className='flex flex-row'>
+        <div className='flex flex-row justify-center'>
             {isConnected ? (
-              <div className=''>
-                <span className='text-[12px] text-gray'>Account: {account[0]}</span>
-                <button className='mt-1 shadow-md shadow-gray border border-gray-dark rounded-2xl pl-1 pr-1 hover:border-transparant hover:bg-[#2e2e2e] hover:shadow-inner hover:shadow-black' onClick={disconnect} >Disconnect</button>
+              <div className='flex flex-col max-w-[6rem] items-center'>
+                <span className='text-center text-[12px] text-gray'>Account: {account[0]}</span>
+                <button className='text-sm content-center mt-1 shadow-md shadow-gray border border-gray-dark rounded-2xl pl-1 pr-1 hover:border-transparant hover:bg-[#2e2e2e] hover:shadow-inner hover:shadow-black' onClick={disconnect} >Disconnect</button>
               </div>
             ) : (
               <ConnectButton account={account} setAccount={setAccount} connectAccount={connectAccount}/>
