@@ -1,5 +1,6 @@
 import { initializeApp } from "firebase/app";
-const { getFirestore, Timestamp, FieldValue } = require('firebase-admin/firestore');
+import { getFirestore } from 'firebase/firestore';
+import { getStorage } from 'firebase/storage';
 
 const firebaseConfig = {
     apiKey: "AIzaSyCb-IlblfgpeZK3q4fqSx3GGbBQ5LyGk-8",
@@ -8,11 +9,12 @@ const firebaseConfig = {
     storageBucket: "c0nn3ct3d-db162.appspot.com",
     messagingSenderId: "372972818163",
     appId: "1:372972818163:web:22035cf6d40bd67a59f186",
-    measurementId: "G-JCHX5305NC"
   };
   
-  const firebaseApp = initializeApp(firebaseConfig);
+  const app = initializeApp(firebaseConfig);
 
   const db = getFirestore();
+
+  const storage = getStorage();
   
-  export default db;
+  export default { db, storage, app };

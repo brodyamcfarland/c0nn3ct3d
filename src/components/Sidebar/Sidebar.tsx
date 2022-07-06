@@ -4,12 +4,16 @@ import { BiBell } from 'react-icons/bi';
 import { BiEnvelope } from 'react-icons/bi';
 import { RiCoinLine } from 'react-icons/ri';
 import { GiSpikedHalo } from 'react-icons/gi';
-import Turnt from '../../images/Turnt.PNG';
 import ConnectButton from './ConnectButton';
+import { ethers } from 'ethers';
 
 interface Props {
   account: string;
   setAccount: React.Dispatch<React.SetStateAction<string>>;
+  setUri: React.Dispatch<React.SetStateAction<string>>;
+  setBio: React.Dispatch<React.SetStateAction<string>>;
+  setUsername: React.Dispatch<React.SetStateAction<string>>;
+  contract: any;
 }
 declare global {
   interface Window {
@@ -20,7 +24,7 @@ declare global {
 
 //TODO: 1. Make a ternary operation for either a Connect Button to show up if not connected or the Profile widget w/ pic if connected.
 
-const Sidebar = ({account, setAccount}: Props) => {
+const Sidebar = ({account, setAccount, setUri, setBio, setUsername, contract}: Props) => {
 
     const isConnected = Boolean(account);
 
@@ -30,12 +34,26 @@ const Sidebar = ({account, setAccount}: Props) => {
               method: "eth_requestAccounts",
           });
           setAccount(account);
-      }
-  }
+// I want the count variable to display, so I can do a for loop to match the wallet address with the SBT Id to confirm
+          const count = await contract.count();
+          const countInt = Number(count.toString());
+          console.log("Verifying SBT Id. Filtering Through: " + countInt);
+          for(let i=0; i < (countInt); i++) {
+            let tokenOwner = await contract.ownerOf(i);
+            if (tokenOwner = account) {
+              const myTokenId = tokenOwner;
+              console.log(myTokenId + " is the owner of Token Id: " + i);  
+            }
+          
 
-  async function disconnect() {
-    setAccount('');
-  }
+          }
+      }          
+    }
+    
+
+    async function disconnect() {
+      setAccount('');
+    }
 
   return (
     <div className='flex flex-col w-1/5 p-3 gap-3 border-r-[1px] border-gray-dark'>
