@@ -21,9 +21,10 @@ const ABI = [
   "function tokenBio(uint256 tokenId) public view returns (string memory)",
   "function count() public view returns (uint256)",
   "function ownerOf(uint256 tokenId) public view returns (address)",
+  "function getTokenId(address) public view returns (uint)",
 ]
 
-const address = '0x48F466ef725C256D95C89B2B6822983E7A39B96C'; //Soulbound SC Address
+const address = '0xeB1571e421c55cCB15bdE06FCC7c7A6A886414Ef'; //Soulbound SC Address v3
 
 const contract = new ethers.Contract(address, ABI, provider);
 
@@ -33,12 +34,12 @@ const main = async () => {
   const tokenURI = await contract.tokenURI(1);
   const tokenUsernames = await contract.tokenUsernames(1);
   const tokenBio = await contract.tokenBio(1);
-  console.log(`\nReading from Smart Contract: ${address}`);
+  console.log(`\nSmart Contract Connected: ${address}`);
   console.log(`\nName: ${name}`);
   console.log(`\nSymbol: ${symbol}`);
-  console.log(`\nToken URI [1]: ${tokenURI}`);
-  console.log(`\nToken Username [1]: ${tokenUsernames}`);
-  console.log(`\nToken Bio [1]: ${tokenBio}`);
+  console.log(`\nToken URI [TokenId: 1]: ${tokenURI}`);
+  console.log(`\nToken Username [TokenId: 1]: ${tokenUsernames}`);
+  console.log(`\nToken Bio [TokenId: 1]: ${tokenBio}`);
 };
 
 main();

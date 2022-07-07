@@ -28,35 +28,31 @@ const Sidebar = ({account, setAccount, setUri, setBio, setUsername, contract}: P
 
     const isConnected = Boolean(account);
 
-    async function connectAccount() {
+    const connectAccount = async () => {
       if (window.ethereum) {
           const account = await window.ethereum.request({
               method: "eth_requestAccounts",
           });
-          setAccount(account);
-// I want the count variable to display, so I can do a for loop to match the wallet address with the SBT Id to confirm
-// 1) Learn how to skip for-loop errors
-// 2) Figure out how to assign a tokenID to a MetaMask Account
-// 3) Add IPFS Image, Bio, and Username to State and Render on Feed.tsx
-          const count = await contract.count();
-          const countInt = Number(count.toString());
-          console.log("Verifying SBT Id. Filtering Through: " + countInt);
-// 4) Need to let i=0 so we can account for any errors due to burnt tokens
-          for(let i=1; i < (countInt); i++) {
-            let tokenOwner = await contract.ownerOf(i);
-            console.log(tokenOwner + " i:" + i);
-            if (tokenOwner != account[0]) {              
-            } else {
-              const tokenId = i;
-              console.log(tokenId);
-              console.log("Token Match. Saving to state.");
-            }
-            
-          }
+          await setAccount(account);
+          setInfo();
       }          
     }
 
-    async function disconnect() {
+    const setInfo = async () => {
+      let count = await contract.count();
+      let countInt = Number(count.toString());
+      console.log("Total Accounts Created: " + countInt);
+      let myToken = await contract.getTokenId(String(account));
+      console.log(myToken);
+    }
+
+    console.log(account);
+// I want the count variable to display, so I can do a for loop to match the wallet address with the SBT Id to confirm
+// 1) use the getTokenId SC function
+// 2) Figure out how to assign a tokenID to a MetaMask Account -- Use the getTokenId SC function
+// 3) Add IPFS Image, Bio, and Username to State and Render on Feed.tsx
+
+    const disconnect = () => {
       setAccount('');
     }
 
