@@ -16,7 +16,7 @@ const Footer : React.FC = () => {
       .get<Coins[]>('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin%2Cethereum&vs_currencies=usd%2Cusd&include_market_cap=true&include_24hr_change=true&include_last_updated_at=true')
       .then((response: AxiosResponse) => {
         console.clear();
-        console.log('Response: ', response.data);
+        // console.log('Response: ', response.data);
         setCoins(response.data);       
         setLoading(false);
       }) 
@@ -24,7 +24,7 @@ const Footer : React.FC = () => {
   
   if (loading) return <h1 className='text-center flex flex-row p-2 justify-center border-t-[1px] border-gray-dark'> Loading... </h1>;
 
-  console.log('BTC & ETH Price Loaded...' + coins);
+  // console.log('BTC & ETH Price Loaded...' + coins);
   let btcdaily = Math.round(coins.bitcoin.usd_24h_change);
   let ethdaily = Math.round(coins.ethereum.usd_24h_change);
 
