@@ -54,6 +54,7 @@ function App() {
   const [bio, setBio] = useState<string>(''); //Read from Smart Contract after Connecting
   const [uri, setUri] = useState<string>(''); //Read from Smart Contract after Connecting
   const [username, setUsername] = useState<string>(''); //Read from Smart Contract after Connecting
+  const [tokenId, setTokenId] = useState<number>();
   
 // Timestamps will be handled by Firebase
 //=========STATE END===========//
@@ -61,7 +62,16 @@ function App() {
     <>
       <div className='flex flex-col min-h-screen'>
           <div className='flex flex-row bg-black text-white mb-auto flex-grow' >
-            <Sidebar account={account} setAccount={setAccount} setBio={setBio} setUri={setUri} setUsername={setUsername} contract={contract}/>            
+            <Sidebar
+              account={account}
+              setAccount={setAccount}
+              setBio={setBio}
+              setUri={setUri}
+              setUsername={setUsername}
+              contract={contract}
+              tokenId={tokenId}
+              setTokenId={setTokenId}
+              />            
             <Feed account={account} postText={postText} setPostText={setPostText} postPhoto={postPhoto} setPostPhoto={setPostPhoto}/>
             <Widgets />
           </div>

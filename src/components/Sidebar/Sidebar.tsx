@@ -14,6 +14,8 @@ interface Props {
   setBio: React.Dispatch<React.SetStateAction<string>>;
   setUsername: React.Dispatch<React.SetStateAction<string>>;
   contract: any;
+  tokenId: number | undefined;
+  setTokenId: React.Dispatch<React.SetStateAction<number | undefined>>;
 }
 declare global {
   interface Window {
@@ -24,7 +26,7 @@ declare global {
 
 //TODO: 1. Make a ternary operation for either a Connect Button to show up if not connected or the Profile widget w/ pic if connected.
 
-const Sidebar = ({account, setAccount, setUri, setBio, setUsername, contract}: Props) => {
+const Sidebar = ({account, setAccount, setUri, setBio, setUsername, contract, tokenId, setTokenId}: Props) => {
 
     const isConnected = Boolean(account);
 
@@ -33,19 +35,26 @@ const Sidebar = ({account, setAccount, setUri, setBio, setUsername, contract}: P
           const account = await window.ethereum.request({
               method: "eth_requestAccounts",
           });
-          await setAccount(account);
-          setInfo();
+          setAccount(account);
+          loadUserData();
       }          
     }
-
-    const setInfo = async () => {
-      let count = await contract.count();
-      let countInt = Number(count.toString());
-      console.log("Total Accounts Created: " + countInt);
-      let myToken = await contract.getTokenId(String(account));
+//==========I want to get these contract functions to work somehow and save the values in global state in App.tsx=====//
+    const loadUserData = async () => {
+      let myToken = await contract.getTokenId(account);
+      setTokenId(myToken);
       console.log(myToken);
+      let myUsername = await contract.tokenUsernames(myToken);
+      setUsername(myUsername);
+      console.log(myUsername);
+      let myUri = await contract.tokenURI(myToken);
+      setUri(myUri);
+      console.log(myUri);
+      let myBio = await contract.tokenBio(myToken);
+      setBio(myBio);
+      console.log(myBio);
     }
-
+//========================================================================================================================//
     console.log(account);
 // I want the count variable to display, so I can do a for loop to match the wallet address with the SBT Id to confirm
 // 1) use the getTokenId SC function
