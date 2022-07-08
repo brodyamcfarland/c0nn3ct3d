@@ -11,6 +11,7 @@ interface Props {
   setUri: React.Dispatch<React.SetStateAction<string>>;
   setBio: React.Dispatch<React.SetStateAction<string>>;
   setUsername: React.Dispatch<React.SetStateAction<string>>;
+  setLoggedIn: React.Dispatch<React.SetStateAction<boolean>>;
   contract: any;
   tokenId: number | undefined;
   setTokenId: React.Dispatch<React.SetStateAction<number | undefined>>;
@@ -24,7 +25,7 @@ declare global {
 
 //TODO: 1. Make a ternary operation for either a Connect Button to show up if not connected or the Profile widget w/ pic if connected.
 
-const Sidebar = ({account, setAccount, setUri, setBio, setUsername, contract, tokenId, setTokenId}: Props) => {
+const Sidebar = ({account, setAccount, setUri, setBio, setUsername, contract, tokenId, setTokenId, setLoggedIn}: Props) => {
 
     const isConnected = Boolean(account);
 
@@ -43,15 +44,19 @@ const Sidebar = ({account, setAccount, setUri, setBio, setUsername, contract, to
       let myTokenToNumber = Number(myToken);
       setTokenId(myTokenToNumber);
       console.log("My Token ID = " + myTokenToNumber);
+      let myUri = await contract.tokenURI(myToken);
+      const moddedUri = myUri.replace("ipfs://", "https://ipfs.io/ipfs/");
+      setUri(moddedUri);
+      console.log("URI = " + moddedUri);
       let myUsername = await contract.tokenUsernames(myToken);
       setUsername(myUsername);
       console.log("Username = " + myUsername);
-      let myUri = await contract.tokenURI(myToken);
-      setUri(myUri);
-      console.log("URI = " + myUri);
       let myBio = await contract.tokenBio(myToken);
       setBio(myBio);
       console.log("Bio = " + myBio);
+      if(myBio.length > 0 && myUri.length > 0 && myUsername.length > 0) {
+        setLoggedIn(true);
+      }
     }
 
     useEffect(() => {

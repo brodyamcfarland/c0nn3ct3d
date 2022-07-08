@@ -55,8 +55,8 @@ function App() {
   const [uri, setUri] = useState<string>(''); //Read from Smart Contract after Connecting
   const [username, setUsername] = useState<string>(''); //Read from Smart Contract after Connecting
   const [tokenId, setTokenId] = useState<number>();
+  const [loggedIn, setLoggedIn] = useState<boolean>(false);
   
-// Timestamps will be handled by Firebase
 //=========STATE END===========//
   return (
     <>
@@ -71,6 +71,7 @@ function App() {
               contract={contract}
               tokenId={tokenId}
               setTokenId={setTokenId}
+              setLoggedIn={setLoggedIn}
               />            
             <Feed
               account={account}
@@ -81,6 +82,7 @@ function App() {
               username={username}
               uri={uri}
               bio={bio}
+              loggedIn={loggedIn}
               />
             <Widgets />
           </div>
