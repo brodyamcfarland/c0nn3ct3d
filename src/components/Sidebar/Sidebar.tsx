@@ -1,15 +1,13 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import { AiOutlineHome } from 'react-icons/ai';
 import { BiBell } from 'react-icons/bi';
 import { BiEnvelope } from 'react-icons/bi';
 import { RiCoinLine } from 'react-icons/ri';
 import { GiSpikedHalo } from 'react-icons/gi';
 import ConnectButton from './ConnectButton';
-import { ethers } from 'ethers';
-
 interface Props {
-  account: string;
-  setAccount: React.Dispatch<React.SetStateAction<string>>;
+  account: null | string;
+  setAccount: React.Dispatch<React.SetStateAction<null | string>>;
   setUri: React.Dispatch<React.SetStateAction<string>>;
   setBio: React.Dispatch<React.SetStateAction<string>>;
   setUsername: React.Dispatch<React.SetStateAction<string>>;
@@ -32,37 +30,45 @@ const Sidebar = ({account, setAccount, setUri, setBio, setUsername, contract, to
 
     const connectAccount = async () => {
       if (window.ethereum) {
-          const account = await window.ethereum.request({
+          const metaMask = await window.ethereum.request({
               method: "eth_requestAccounts",
           });
-          setAccount(account);
-          loadUserData();
+          setAccount(metaMask);
       }          
     }
-//==========I want to get these contract functions to work somehow and save the values in global state in App.tsx=====//
+//==================LOAD ALL PROFILE DATA AFTER WALLET IS CONNECTED===================//
     const loadUserData = async () => {
-      let myToken = await contract.getTokenId(account);
-      setTokenId(myToken);
-      console.log(myToken);
+      let stringAccount = String(account)
+      let myToken = await contract.getTokenId(stringAccount);
+      let myTokenToNumber = Number(myToken);
+      setTokenId(myTokenToNumber);
+      console.log("My Token ID = " + myTokenToNumber);
       let myUsername = await contract.tokenUsernames(myToken);
       setUsername(myUsername);
-      console.log(myUsername);
+      console.log("Username = " + myUsername);
       let myUri = await contract.tokenURI(myToken);
       setUri(myUri);
-      console.log(myUri);
+      console.log("URI = " + myUri);
       let myBio = await contract.tokenBio(myToken);
       setBio(myBio);
-      console.log(myBio);
+      console.log("Bio = " + myBio);
     }
+
+    useEffect(() => {
+      if(account != null)
+        loadUserData();
+    },[account]);
+//=========================================END==========================================//    
+    
 //========================================================================================================================//
-    console.log(account);
+    // console.log("MetaMask Account State: " + account);
 // I want the count variable to display, so I can do a for loop to match the wallet address with the SBT Id to confirm
 // 1) use the getTokenId SC function
 // 2) Figure out how to assign a tokenID to a MetaMask Account -- Use the getTokenId SC function
 // 3) Add IPFS Image, Bio, and Username to State and Render on Feed.tsx
 
     const disconnect = () => {
-      setAccount('');
+      setAccount(null);
     }
 
   return (
@@ -91,7 +97,7 @@ const Sidebar = ({account, setAccount, setUri, setBio, setUsername, contract, to
         <div className='flex flex-row justify-center'>
             {isConnected ? (
               <div className='flex flex-col max-w-[6rem] items-center'>
-                <span className='text-center text-[12px] text-gray'>Account: {account[0]}</span>
+                <span className='text-center text-[12px] text-gray'>Account: {account}</span>
                 <button className='text-sm content-center mt-1 shadow-md shadow-gray border border-gray-dark rounded-2xl pl-1 pr-1 hover:border-transparant hover:bg-[#2e2e2e] hover:shadow-inner hover:shadow-black' onClick={disconnect} >Disconnect</button>
               </div>
             ) : (

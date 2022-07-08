@@ -7,7 +7,7 @@ import { ethers } from 'ethers';
 import { useState } from 'react';
 
 //======================================CONTRACT CONNECTION============================================================================//
-
+//====Provider - Read Access=====Signer - Read/Write Access=========//
 const INFURA_ID = process.env.REACT_APP_API_KEY;
 const provider = new ethers.providers.JsonRpcProvider(`https://rinkeby.infura.io/v3/${INFURA_ID}`);
 
@@ -31,15 +31,15 @@ const contract = new ethers.Contract(address, ABI, provider);
 const main = async () => {
   const name = await contract.name();
   const symbol = await contract.symbol();
-  const tokenURI = await contract.tokenURI(1);
-  const tokenUsernames = await contract.tokenUsernames(1);
-  const tokenBio = await contract.tokenBio(1);
+  // const tokenURI = await contract.tokenURI(1);
+  // const tokenUsernames = await contract.tokenUsernames(1);
+  // const tokenBio = await contract.tokenBio(1);
   console.log(`\nSmart Contract Connected: ${address}`);
   console.log(`\nName: ${name}`);
   console.log(`\nSymbol: ${symbol}`);
-  console.log(`\nToken URI [TokenId: 1]: ${tokenURI}`);
-  console.log(`\nToken Username [TokenId: 1]: ${tokenUsernames}`);
-  console.log(`\nToken Bio [TokenId: 1]: ${tokenBio}`);
+  // console.log(`\nToken URI [TokenId: 1]: ${tokenURI}`);
+  // console.log(`\nToken Username [TokenId: 1]: ${tokenUsernames}`);
+  // console.log(`\nToken Bio [TokenId: 1]: ${tokenBio}`);
 };
 
 main();
@@ -48,7 +48,7 @@ main();
 function App() {
 //========GLOBAL STATES=========//
 
-  const [account, setAccount] = useState<string>('');
+  const [account, setAccount] = useState<null | string>(null);
   const [postText, setPostText] = useState<string>('');
   const [postPhoto, setPostPhoto] = useState<File[]>([]);
   const [bio, setBio] = useState<string>(''); //Read from Smart Contract after Connecting
@@ -72,7 +72,16 @@ function App() {
               tokenId={tokenId}
               setTokenId={setTokenId}
               />            
-            <Feed account={account} postText={postText} setPostText={setPostText} postPhoto={postPhoto} setPostPhoto={setPostPhoto}/>
+            <Feed
+              account={account}
+              postText={postText}
+              setPostText={setPostText}
+              postPhoto={postPhoto}
+              setPostPhoto={setPostPhoto}
+              username={username}
+              uri={uri}
+              bio={bio}
+              />
             <Widgets />
           </div>
           <div className='bg-black text-white'>

@@ -1,8 +1,8 @@
 import React from 'react'
 
 interface Props{
-  account: string;
-  setAccount: React.Dispatch<React.SetStateAction<string>>;
+  account: null | string;
+  setAccount: React.Dispatch<React.SetStateAction<null | string>>;
   connectAccount: any;   
 };
 
