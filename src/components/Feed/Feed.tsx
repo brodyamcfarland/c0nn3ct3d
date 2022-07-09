@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { HiOutlinePhotograph } from 'react-icons/hi'
 import db from '../../backend/Firebase';
 import Post from '../Feed/Post';
@@ -22,10 +22,12 @@ declare global {
   }
 }
 
-const Feed = ({account, postText, setPostText, postPhoto, setPostPhoto, username, bio, uri}: Props) => {
+const Feed = ({account, postText, setPostText, postPhoto, setPostPhoto, username, bio, uri, loggedIn}: Props) => {
 
+  // const [loading, setLoading]=useState<boolean>(false);
 
-
+  // if (loading) return <h1> LOADING...</h1>
+  
   return (
     <div className='flex-col w-3/5 overscroll-auto'>
       <form>
@@ -45,11 +47,11 @@ const Feed = ({account, postText, setPostText, postPhoto, setPostPhoto, username
                 <div className='text-center'>Not Connected</div>
                 <div className='text-gray text-center'>Click "Connect" Button</div>
               </div>
-              <textarea placeholder='...' className='ml-2 p-1 text-white bg-transparent flex-grow ease-in duration-200 resize-none border border-gray-dark rounded-2xl scrollbar-hide overflow-y-none max-h-8 hover:bg-blackish' ></textarea>
+              <textarea placeholder='...' className='ml-2 p-1 text-white bg-transparent flex-grow ease-in duration-200 resize-none border border-gray-dark rounded-xl scrollbar-hide overflow-y-none max-h-8 hover:bg-blackish' ></textarea>
             </div>
           )}
           <div className='flex flex-row justify-end gap-3 pr-3 pb-1 border-b-[1px] border-gray-dark items-center'>
-            <span className='text-xl ease-in-out duration-700 hover:rotate-45'><HiOutlinePhotograph/></span>
+            <span className='text-xl ease-in-out duration-700 hover:text-gray-dark'><HiOutlinePhotograph/></span>
             <button className='border border-gray-dark rounded-2xl pl-1 pr-1 pt-[1px] pb-[2px] items-center ease-in duration-200 hover:bg-[#1f6e1c]'>+</button>
           </div>
       </form>
@@ -58,6 +60,7 @@ const Feed = ({account, postText, setPostText, postPhoto, setPostPhoto, username
                 username={username}
                 bio={bio}
                 uri={uri}
+                loggedIn={loggedIn}
               />
           </div>
     </div>

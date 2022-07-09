@@ -84,7 +84,9 @@ function App() {
               bio={bio}
               loggedIn={loggedIn}
               />
-            <Widgets />
+            <Widgets
+              contract={contract}
+              />
           </div>
           <div className='bg-black text-white'>
             <Footer /> 
