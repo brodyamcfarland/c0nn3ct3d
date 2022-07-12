@@ -5,9 +5,7 @@ import { BiEnvelope } from 'react-icons/bi';
 import { RiCoinLine } from 'react-icons/ri';
 import { GiSpikedHalo } from 'react-icons/gi';
 import ConnectButton from './ConnectButton';
-import { addDoc, collection, doc } from 'firebase/firestore';
-import {db} from '../../backend/Firebase';
-
+import { useState } from 'react';
 
 interface Props {
   account: null | string;
@@ -31,10 +29,11 @@ declare global {
   }
 }
 
-//TODO: 1. Make a ternary operation for either a Connect Button to show up if not connected or the Profile widget w/ pic if connected.
-
 const Sidebar = ({account, setAccount, setUri, setBio, setUsername, contract, tokenId, setTokenId, setLoggedIn, username, bio, uri, loggedIn}: Props) => {
+//=====================STATES===========================================//  
+    const [loginLoading, setLoginLoading] = useState<boolean>(false);
 
+//=====================METAMASK CONNECTION==============================// 
     const isConnected = Boolean(account);
 
     const connectAccount = async () => {
@@ -52,13 +51,14 @@ const Sidebar = ({account, setAccount, setUri, setBio, setUsername, contract, to
     }
 
 //==================LOAD ALL PROFILE DATA AFTER WALLET IS CONNECTED===================//
-//*NEED TO HAVE ERROR HANDLING WHEN SOMEBODY DOES NOT HAVE THE TOKEN!//
     const loadUserData = async () => {
+      setLoginLoading(true);
       let stringAccount = String(account)
       let myToken = await contract.getTokenId(stringAccount);
       let myTokenToNumber = Number(myToken);
       setTokenId(myTokenToNumber);
       console.log("My Token ID = " + myTokenToNumber);
+      setLoginLoading(false);
       let myUri = await contract.tokenURI(myToken);
       const moddedUri = myUri.replace("ipfs://", "https://ipfs.io/ipfs/");
       setUri(moddedUri);
@@ -79,27 +79,7 @@ const Sidebar = ({account, setAccount, setUri, setBio, setUsername, contract, to
         loadUserData();
     },[account]);
 //====================================END======================================//
-//============================CREATE USER IN FIREBASE=========================//
-//If the tokenId exists in firebase, do not push to firebase//
-    // const userDocRef = collection(db, "Users", uid as string, `${tokenId}`);
-
-    const usersFB = collection(db, "Users");
-
-    const createUser = async () => {
-      //PUT IF STATEMENT if TokenID Exists in FB, do not push to Firebase
-      console.log(username + bio + uri);
-      await addDoc(usersFB, { uid: tokenId, username: username, bio: bio, uri: uri });
-    };
-
-    useEffect(() => {
-      if (tokenId && username && bio && uri) {
-        createUser();
-      }
-    },[tokenId, username, bio, uri]);
-
-//=========================================END==========================================//    
-    
-
+ 
   return (
     <div className='flex flex-col w-1/5 p-3 gap-3 border-r-[1px] border-gray-dark'>
         <div className='text-4xl font-VT323 text-center select-none'>c0nn3ct3d</div>
@@ -128,9 +108,24 @@ const Sidebar = ({account, setAccount, setUri, setBio, setUsername, contract, to
               <div className='flex flex-col max-w-[6rem] items-center'>
                 <span className='text-center select-none text-[12px] text-gray'>Account: {account}</span>
                 <button className='text-sm content-center mt-1 shadow-md shadow-gray border border-gray-dark rounded-2xl pl-1 select-none pr-1 hover:border-transparant hover:bg-[#2e2e2e] hover:shadow-inner hover:shadow-black' onClick={disconnect} >Disconnect</button>
+                {loggedIn && account ? (
+                  <span className='text-[#58eb89] text-center select-none text-[12px] pt-1'>SOUL ID: {tokenId}</span>
+                ):(
+                  <div>
+                    {loginLoading && 
+                    <div className='text-[#dd4a4a] text-center select-none text-[12px] pt-2'>Verifying Token...</div>}
+                    {tokenId === 0 &&
+                    <div className='text-[#dd4a4a] text-center select-none text-[12px] w-11 pt-1'>No Token Found.</div>
+                    }
+                  </div>
+                )}
               </div>
             ) : (
-              <ConnectButton account={account} setAccount={setAccount} connectAccount={connectAccount}/>
+              <ConnectButton
+                account={account}
+                setAccount={setAccount}
+                connectAccount={connectAccount}
+              />
             )}   
         </div>
     </div>

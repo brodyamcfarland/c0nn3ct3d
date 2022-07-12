@@ -5,7 +5,6 @@ import Widgets from './components/Widgets/Widgets';
 import Footer from './components/Footer/Footer';
 import { ethers } from 'ethers';
 import { useState } from 'react';
-import {db} from '.././src/backend/Firebase';
 
 //======================================CONTRACT CONNECTION============================================================================//
 //====Provider - Read Access=====Signer - Read/Write Access=========//
@@ -32,30 +31,22 @@ const contract = new ethers.Contract(address, ABI, provider);
 const main = async () => {
   const name = await contract.name();
   const symbol = await contract.symbol();
-  // const tokenURI = await contract.tokenURI(1);
-  // const tokenUsernames = await contract.tokenUsernames(1);
-  // const tokenBio = await contract.tokenBio(1);
   console.log(`\nSmart Contract Connected: ${address}`);
   console.log(`\nName: ${name}`);
   console.log(`\nSymbol: ${symbol}`);
-  // console.log(`\nToken URI [TokenId: 1]: ${tokenURI}`);
-  // console.log(`\nToken Username [TokenId: 1]: ${tokenUsernames}`);
-  // console.log(`\nToken Bio [TokenId: 1]: ${tokenBio}`);
 };
 
 main();
 //======================================CONTRACT CONNECTION END==========================================================================//
 
-function App() {
+const App = () => {
 //========GLOBAL STATES=========//
 
   const [account, setAccount] = useState<null | string>(null);
-  const [postText, setPostText] = useState<string>('');
-  const [postPhoto, setPostPhoto] = useState<File[]>([]);
   const [bio, setBio] = useState<string>(''); //Read from Smart Contract after Connecting
   const [uri, setUri] = useState<string>(''); //Read from Smart Contract after Connecting
   const [username, setUsername] = useState<string>(''); //Read from Smart Contract after Connecting
-  const [tokenId, setTokenId] = useState<number>();
+  const [tokenId, setTokenId] = useState<number | undefined>();
   const [loggedIn, setLoggedIn] = useState<boolean>(false);
   
 //=========STATE END===========//
@@ -80,14 +71,11 @@ function App() {
               />            
             <Feed
               account={account}
-              postText={postText}
-              setPostText={setPostText}
-              postPhoto={postPhoto}
-              setPostPhoto={setPostPhoto}
               username={username}
               uri={uri}
               bio={bio}
               loggedIn={loggedIn}
+              tokenId={tokenId}
               />
             <Widgets
               contract={contract}

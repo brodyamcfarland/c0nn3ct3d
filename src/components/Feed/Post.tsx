@@ -24,8 +24,8 @@ const Post = ({username, bio, uri, loggedIn}: Props) => {
       setUserLikes(userLikes - 1);
     } else if (loggedIn == true && userLikes < 1) {
       setLikes(likes + 1);
-      setUserLikes(userLikes + 1)
-      setLiked(true)
+      setUserLikes(userLikes + 1);
+      setLiked(true);
     }
   }
 
@@ -44,7 +44,7 @@ const Post = ({username, bio, uri, loggedIn}: Props) => {
   return (
     <div className='flex flex-col'>
       <div className='flex flex-row pt-3 pl-3 pr-3 place-items-center select-none'>
-        <img className='border border-gray-dark rounded-3xl w-7 h-7' alt='profilepic' src={mojojojo}></img>
+        <img className='border border-gray-dark rounded-full w-7 h-7' alt='profilepic' src={mojojojo}></img>
         <div className='flex flex-col pl-1 w-[12rem]'>
           <div>Mojo-jojojo</div>
           <div className='text-gray'>Supervillian</div>
@@ -56,14 +56,14 @@ const Post = ({username, bio, uri, loggedIn}: Props) => {
           className='text-xl ease-in-out duration-700 hover:text-[#1fd9e6ae] text-[17px] cursor-pointer select-none'
           onClick={handleComment}
           >
-          <FaRegComment/>
+          <FaRegComment className='text-xl'/>
         </span>
         <span 
           className='text-xl ease-in-out duration-700 hover:text-[#e61f1fae] flex flex-row cursor-pointer select-none place-items-center'
           onClick={handleLike}
           >
           <span className='text-[12px] pr-[4px]'>{likes}</span>
-          <AiOutlineHeart/>
+          <AiOutlineHeart className='text-2xl'/>
         </span>
       </div>
     </div>
