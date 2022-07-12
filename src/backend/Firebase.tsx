@@ -17,4 +17,6 @@ const firebaseConfig = {
 
   const storage = getStorage();
   
-  export default { db, storage, app };
+  export { db, storage};
+
+  export default { app };

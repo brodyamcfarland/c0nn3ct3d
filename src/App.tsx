@@ -5,6 +5,7 @@ import Widgets from './components/Widgets/Widgets';
 import Footer from './components/Footer/Footer';
 import { ethers } from 'ethers';
 import { useState } from 'react';
+import {db} from '.././src/backend/Firebase';
 
 //======================================CONTRACT CONNECTION============================================================================//
 //====Provider - Read Access=====Signer - Read/Write Access=========//
@@ -66,11 +67,15 @@ function App() {
               account={account}
               setAccount={setAccount}
               setBio={setBio}
+              bio={bio}
               setUri={setUri}
+              uri={uri}
               setUsername={setUsername}
+              username={username}
               contract={contract}
               tokenId={tokenId}
               setTokenId={setTokenId}
+              loggedIn={loggedIn}
               setLoggedIn={setLoggedIn}
               />            
             <Feed

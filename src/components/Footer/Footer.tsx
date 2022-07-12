@@ -31,19 +31,19 @@ const Footer : React.FC = () => {
   return (
     <>
       <div className='text-center flex flex-row gap-5 p-2 justify-center border-t-[1px] border-gray-dark items-center'>
-          <span className='flex flex-row'>
+          <span className='flex flex-row select-none'>
             <img className='pr-1' src={BTC} alt='btcprice'/>
             <span className='pt-[5px] text-gray'>$ {coins.bitcoin.usd}</span>
             <span className='text-sm pl-1 text-[#5e5e5e]'>{btcdaily}%</span>
           </span>
-          <span className='flex flex-row'>
+          <span className='flex flex-row select-none'>
             <img className='pr-1' src={ETH} alt='ethprice'/>
             <span className='pt-[5px] text-gray'>$ {coins.ethereum.usd}</span>
             <span className='text-sm pl-1 text-[#5e5e5e]'>{ethdaily}%</span>
           </span>
-          <a className='text-gray hover:text-white' href='https://brodyamcfarland.github.io/Soulbound/' target='_blank' rel="noreferrer">Soulbound</a>
-          <a className='text-gray hover:text-white' href='https://github.com/brodyamcfarland' target='_blank' rel="noreferrer">Github</a>
-          <a className='text-gray hover:text-white' href='/' target='_blank' rel="noreferrer">About</a>
+          <a className='select-none text-gray hover:text-white' href='https://brodyamcfarland.github.io/Soulbound/' target='_blank' rel="noreferrer">Soulbound</a>
+          <a className='select-none text-gray hover:text-white' href='https://github.com/brodyamcfarland' target='_blank' rel="noreferrer">Github</a>
+          <a className='select-none text-gray hover:text-white' href='/' target='_blank' rel="noreferrer">About</a>
       </div>
     </>
   )

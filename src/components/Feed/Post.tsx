@@ -12,15 +12,21 @@ interface Props {
 
 const Post = ({username, bio, uri, loggedIn}: Props) => {
 
+  const [userLikes, setUserLikes] = useState<number>(0);
   const [likes, setLikes] = useState<number>(0);
   const [comments, setComments] = useState<Array<string>>([]);
+  const [liked, setLiked] = useState<boolean>(false);
   
-
   const handleLike = () => {
-    if (loggedIn == true) {
+    if (liked && loggedIn == true) {
+      setLiked(false);
+      setLikes(likes - 1);
+      setUserLikes(userLikes - 1);
+    } else if (loggedIn == true && userLikes < 1) {
       setLikes(likes + 1);
+      setUserLikes(userLikes + 1)
+      setLiked(true)
     }
-    //Need to cap the likes for 1 per post
   }
 
   const handleComment = () => {
@@ -37,26 +43,26 @@ const Post = ({username, bio, uri, loggedIn}: Props) => {
 
   return (
     <div className='flex flex-col'>
-      <div className='flex flex-row pt-3 pl-3 pr-3 place-items-center' >
+      <div className='flex flex-row pt-3 pl-3 pr-3 place-items-center select-none'>
         <img className='border border-gray-dark rounded-3xl w-7 h-7' alt='profilepic' src={mojojojo}></img>
         <div className='flex flex-col pl-1 w-[12rem]'>
           <div>Mojo-jojojo</div>
-          <div className='text-gray'>Bad Guy</div>
+          <div className='text-gray'>Supervillian</div>
         </div>
-        <div className='ml-2 p-2 text-white bg-transparent flex-grow ease-in duration-200 resize-none border border-gray-dark rounded-xl max-h-8 hover:bg-blackish' >Dam this shit actually busssin fr.</div>
+        <div className='ml-2 p-2 text-white bg-transparent flex-grow resize-none border border-gray-dark select-none rounded-xl max-h-8' >Dam this shit actually busssin fr.</div>
       </div>
-      <div className='flex flex-row justify-end gap-3 pr-3 pb-1 border-b-[1px] border-gray-dark align-middle'>
+      <div className='flex flex-row justify-end gap-3 pr-3 pb-1 pt-1 border-b-[1px] border-gray-dark align-middle place-items-center'>
         <span
-          className='text-xl ease-in-out duration-700 hover:text-[#1fd9e6ae] pt-1 pr-1 text-[17px] cursor-none'
+          className='text-xl ease-in-out duration-700 hover:text-[#1fd9e6ae] text-[17px] cursor-pointer select-none'
           onClick={handleComment}
           >
           <FaRegComment/>
         </span>
         <span 
-          className='text-xl ease-in-out duration-700 hover:text-[#e61f1fae] pt-1 pr-1 flex flex-row'
+          className='text-xl ease-in-out duration-700 hover:text-[#e61f1fae] flex flex-row cursor-pointer select-none place-items-center'
           onClick={handleLike}
           >
-          <span className='text-[16px]'>{likes}</span>
+          <span className='text-[12px] pr-[4px]'>{likes}</span>
           <AiOutlineHeart/>
         </span>
       </div>

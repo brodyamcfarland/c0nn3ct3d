@@ -12,6 +12,7 @@
 /build
 
 # misc
+Firebase.tsx
 .env
 .DS_Store
 .env.local
