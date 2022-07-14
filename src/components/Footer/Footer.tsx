@@ -28,7 +28,7 @@ const Footer : React.FC = () => {
 
   return (
     <>
-      <div className='text-center flex flex-row gap-5 p-2 justify-center border-t-[1px] border-gray-dark items-center'>
+      <div className='fixed bottom-[0px] min-w-full text-center flex flex-row gap-5 p-2 justify-center border-t-[1px] border-gray-dark items-center bg-black'>
           <span className='flex flex-row select-none'>
             <img className='pr-1' src={BTC} alt='btcprice'/>
             <span className='pt-[5px] text-gray'>$ {coins.bitcoin.usd}</span>

@@ -25,6 +25,7 @@ const Feed = ({account, username, bio, uri, loggedIn, tokenId}: Props) => {
 
 //========================STATES=========================//
   const [posts, setPosts] = useState([]);
+  const UID = Date.now().toString(); //<----Need this as a UID for images AND posts
 //=======================================================//
 
   useEffect(
@@ -37,16 +38,17 @@ const Feed = ({account, username, bio, uri, loggedIn, tokenId}: Props) => {
       ),
     [db]
   );
-
+  
   
   return (
-    <div className='flex-col w-3/5 overflow-y-scroll scrollbar-hide'>
+    <div className='flex-col w-3/5 overflow-y-scroll scrollbar-hide pb-8'>
           {loggedIn ? (
             <Form
               tokenId={tokenId}
               username={username}
               bio={bio}
               uri={uri}
+              UID={UID}
             />
           ) : (
             <div className='flex flex-row p-1 pt-3 pr-3 pl-3 place-items-center select-none pb-6 border-b-[1px] border-gray-dark'>
@@ -58,7 +60,7 @@ const Feed = ({account, username, bio, uri, loggedIn, tokenId}: Props) => {
               <textarea placeholder='Please make sure you are connected to Rinkeby Test Network and have minted your Soulbound Token!' className='ml-2 p-1 text-white bg-transparent flex-grow ease-in duration-200 resize-none border border-gray-dark rounded-xl scrollbar-hide overflow-y-none max-h-8 hover:bg-blackish' ></textarea>
             </div>
           )}
-          <div>
+          <div className='flex-1 overflow-auto scrollbar-hide'>
           {posts.map((post: any) => (
             <Post
               key={post.id}//<-----Key for mapping

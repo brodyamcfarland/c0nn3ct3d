@@ -33,7 +33,7 @@ const Widgets = ({contract}: Props) => {
         </div>
         <div className='bg-blackish border border-gray-dark rounded-2xl p-2 mt-2'>
           <p className='text-center'>Metrics</p>
-          <p className='text-gray pt-2'>Total c0nn3ct3d Accounts:<span className='text-white'> {count}</span></p>
+          <p className='text-gray pt-2'>Total c0nn3ct3d Accounts:<span className='text-white'>  {count}</span></p>
           <p className='text-gray pt-2'>Total Soulbound Tokens:</p>
           <p className='text-gray pt-2'>Total Posts:</p>
         </div>

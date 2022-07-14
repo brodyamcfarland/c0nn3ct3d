@@ -1,7 +1,7 @@
 import { useState } from 'react'
-import mojojojo from '../../images/mojojojo.png'
 import { FaRegComment } from 'react-icons/fa';
 import { AiOutlineHeart } from 'react-icons/ai';
+import { RiDeleteBin7Line } from 'react-icons/ri';
 import { collection, deleteDoc, doc, onSnapshot, orderBy, query, setDoc } from "@firebase/firestore";
 import {db} from '../../backend/Firebase';
 
@@ -18,11 +18,11 @@ const Post = ({username, bio, uri, loggedIn, tokenId, post}: Props) => {
 
   const [userLikes, setUserLikes] = useState<number>(0);
   const [likes, setLikes] = useState<number>(0);
-  const [comments, setComments] = useState<Array<string>>([]);
   const [liked, setLiked] = useState<boolean>(false);
+  const [comments, setComments] = useState<Array<string>>([]);
   const [posts, setPosts] = useState<Array<any>>([]);
   
-  const handleLike = () => {
+  const handleLike = async () => {
     //<----------- Add something here that updates the likes in Posts in FB
     if (liked && loggedIn == true) {
       setLiked(false);
@@ -39,8 +39,9 @@ const Post = ({username, bio, uri, loggedIn, tokenId, post}: Props) => {
 
   }
 
-  const handleDelete = () => {
-    //Post Owner Only
+  const handleDelete = (e:any) => {
+    e.stopPropagation();
+    deleteDoc(doc(db, "Posts", ));// <------ Need to Figure out how to fetch which doc is deleted
   }
 
   const handleEdit = () => {
@@ -55,9 +56,24 @@ const Post = ({username, bio, uri, loggedIn, tokenId, post}: Props) => {
           <div>{post.username}</div>
           <div className='text-gray'>{post.bio}</div>
         </div>
+        {post?.image && (
+          <img
+          src={post?.image}
+          alt="postimage"
+          className='rounded-2xl max-h-[15rem] object-cover mr-2'
+         />
+        )}
         <div className='ml-2 p-2 text-white bg-transparent flex-grow resize-none border border-gray-dark select-none rounded-xl max-h-8' >{post.text}</div>
       </div>
-      <div className='flex flex-row justify-end gap-3 pr-3 pb-1 pt-1 border-b-[1px] border-gray-dark align-middle place-items-center'>
+      <div className='flex flex-row justify-end gap-5 pr-3 pb-1 pt-1 border-b-[1px] border-gray-dark align-middle place-items-center'>
+      {username === post.username && (
+        <span
+        className='text-xl ease-in-out duration-700 hover:text-[#e6b11fae] text-[17px] cursor-pointer select-none'
+        onClick={handleDelete}
+        >
+          <RiDeleteBin7Line className='text-xl'/>
+        </span>
+      )}
         <span
           className='text-xl ease-in-out duration-700 hover:text-[#1fd9e6ae] text-[17px] cursor-pointer select-none'
           onClick={handleComment}
@@ -67,8 +83,10 @@ const Post = ({username, bio, uri, loggedIn, tokenId, post}: Props) => {
         <span 
           className='text-xl ease-in-out duration-700 hover:text-[#e61f1fae] flex flex-row cursor-pointer select-none place-items-center'
           onClick={handleLike}
-          >
+        >
+        {post.likes > 0 && (
           <span className='text-[12px] pr-[4px]'>{post.likes}</span>
+        )}
           <AiOutlineHeart className='text-2xl'/>
         </span>
       </div>

@@ -11,9 +11,10 @@ interface Props {
     bio: string;
     uri: string;
     tokenId: number | undefined;
+    UID: string;
 }
 
-const Form = ({uri, username, bio, tokenId}: Props) => {
+const Form = ({uri, username, bio, tokenId, UID}: Props) => {
 //=====================================STATES==================================//
 
     const [input, setInput] = useState<string>("");
@@ -28,6 +29,7 @@ const Form = ({uri, username, bio, tokenId}: Props) => {
         setLoading(true);
         const docRef = await addDoc(collection(db, "Posts"), {
             id: tokenId,
+            postId: UID,
             username: username,
             profilePic: uri,
             bio: bio,
@@ -42,7 +44,7 @@ const Form = ({uri, username, bio, tokenId}: Props) => {
       if (selectedFile) {
         await uploadString(imageRef, selectedFile, "data_url").then(async () => {
           const downloadURL = await getDownloadURL(imageRef);
-          await updateDoc(doc(db, "posts", docRef.id), {
+          await updateDoc(doc(db, "Posts", docRef.id), {
             image: downloadURL,
           });
         });
@@ -64,11 +66,11 @@ const Form = ({uri, username, bio, tokenId}: Props) => {
         };
     };
     
-
   return (
-    <form>
+    <form className={`bg-[#0E1111] ${
+        loading && "opacity-30"}`}>
         <div className='flex flex-row p-1 pt-3 pr-3 pl-3 place-items-center select-none'>
-            <img className='border border-gray-dark rounded-full w-7 h-7' alt='profilepic' src={uri}></img>
+            <img className='bg-black border border-gray-dark rounded-full w-7 h-7' alt='profilepic' src={uri}></img>
             <div className='flex flex-col pl-1 w-[12rem]'>
                 <div>{username}</div>
                 <div className='text-gray'>{bio}</div>
@@ -94,8 +96,8 @@ const Form = ({uri, username, bio, tokenId}: Props) => {
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 placeholder='...'
-                maxLength={280}
-                className='ml-2 p-1 text-white bg-transparent flex-grow ease-in duration-200 border border-gray-dark rounded-2xl scrollbar-hide overflow-y-none max-h-10 hover:bg-blackish'
+                maxLength={250}
+                className='bg-[#000000] ml-2 p-1 text-white bg-transparent flex-grow ease-in duration-200 border border-gray-dark rounded-2xl scrollbar-hide overflow-y-none max-h-10 hover:bg-blackish'
             />
         </div>
         <div className='flex flex-row justify-end gap-3 pr-3 pb-1 border-b-[1px] border-gray-dark items-center'>
@@ -114,7 +116,7 @@ const Form = ({uri, username, bio, tokenId}: Props) => {
             <button
                 onClick={sendPost}
                 disabled={!input && !selectedFile} 
-                className='border border-gray-dark rounded-full pl-1 pr-1 pt-[1px] pb-[2px] items-center cursor-pointer select-none ease-in duration-200 hover:bg-[#1f6e1c]'
+                className='bg-black border border-gray-dark rounded-full pl-1 pr-1 pt-[1px] pb-[2px] items-center cursor-pointer select-none ease-in duration-200 hover:bg-[#1f6e1c]'
             >
             +
             </button>

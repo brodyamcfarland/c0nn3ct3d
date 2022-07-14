@@ -4,9 +4,13 @@
 This is due to the Smart Contract Function "getTokenId" returns 0 when no token exists due to uints.
 
 ====================TO DO====================
-[] See if we can get images on Posts
+[] Fix Delete Button for Owners Posts 
+[] Set Loading UI Effect while post is loading
+[] Fix Soulbound Check Token ID --> It shows URI (easy fix)
+[X] See if we can get images on Posts
 [] Follow / Unfollow
-[] Fix Liking
+[] Fix Sticky Footer blocking posts
+[] Fix Likes
 [] Commenting Functionality
 [X] Show Posts by Pulling in from FB
 [X] Prevent Default on Submitting Post
