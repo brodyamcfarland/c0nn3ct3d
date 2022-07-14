@@ -14,12 +14,14 @@ interface Props {
 }
 
 const Form = ({uri, username, bio, tokenId}: Props) => {
+//=====================================STATES==================================//
 
     const [input, setInput] = useState<string>("");
     const [loading, setLoading] = useState<boolean>(false);
     const [selectedFile, setSelectedFile] = useState<string | null>("");
     const filePickerRef = useRef<any>(null);
 
+//=====================================SEND POST==================================//
     const sendPost = async (event: any) => {
         event.preventDefault();
         if (loading) return;
@@ -28,15 +30,15 @@ const Form = ({uri, username, bio, tokenId}: Props) => {
             id: tokenId,
             username: username,
             profilePic: uri,
-            postImage: selectedFile, //<------- Not sure if i need to send this to storage
             bio: bio,
             likes: 0,
             text: input,
             timestamp: serverTimestamp(),
       });
-  
-      const imageRef = ref(storage, `Posts/${docRef.id}/image`);//<----------Need to find an alternative variable for docRef.id
-  
+  //GENERATING RANDOM NUMBER FOR FILE STORAGE-------------
+      const timePost = Date.now().toString();
+      const imageRef = ref(storage, `Posts/${tokenId}/${timePost}`);//<---- This is what the file gets named
+
       if (selectedFile) {
         await uploadString(imageRef, selectedFile, "data_url").then(async () => {
           const downloadURL = await getDownloadURL(imageRef);
@@ -50,7 +52,7 @@ const Form = ({uri, username, bio, tokenId}: Props) => {
       setInput("");
       setSelectedFile(null);
     };
-
+//=========================ADDING IMAGE TO POST IN APP=====================//
     const addImageToPost = (e: any) => {
         const reader = new FileReader();
         if (e.target.files[0]) {

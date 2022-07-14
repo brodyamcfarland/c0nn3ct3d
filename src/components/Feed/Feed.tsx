@@ -1,7 +1,9 @@
-import React, { useState } from 'react'
+import { useState, useEffect } from 'react';
 import Post from '../Feed/Post';
 import noaccount from '../../images/noaccount.JPG';
 import Form from './Form';
+import { onSnapshot, collection, query, orderBy } from "@firebase/firestore";
+import { db } from "../../backend/Firebase";
 
 
 interface Props {
@@ -21,9 +23,21 @@ declare global {
 
 const Feed = ({account, username, bio, uri, loggedIn, tokenId}: Props) => {
 
-  // const [loading, setLoading]=useState<boolean>(false);
+//========================STATES=========================//
+  const [posts, setPosts] = useState([]);
+//=======================================================//
 
-  // if (loading) return <h1> LOADING...</h1>
+  useEffect(
+    () =>
+      onSnapshot(
+        query(collection(db, "Posts"), orderBy("timestamp", "desc")),
+        (snapshot:any) => {
+          setPosts(snapshot.docs);
+        }
+      ),
+    [db]
+  );
+
   
   return (
     <div className='flex-col w-3/5 overflow-y-scroll scrollbar-hide'>
@@ -45,12 +59,17 @@ const Feed = ({account, username, bio, uri, loggedIn, tokenId}: Props) => {
             </div>
           )}
           <div>
-              <Post
-                username={username}
-                bio={bio}
-                uri={uri}
-                loggedIn={loggedIn}
-              />
+          {posts.map((post: any) => (
+            <Post
+              key={post.id}//<-----Key for mapping
+              post={post.data()}//<---data() is needed to access the vars
+              tokenId={tokenId}
+              username={username}
+              bio={bio}
+              uri={uri}
+              loggedIn={loggedIn}
+            />
+          ))}
           </div>
     </div>
   )

@@ -15,8 +15,6 @@ const Footer : React.FC = () => {
     axios
       .get<Coins[]>('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin%2Cethereum&vs_currencies=usd%2Cusd&include_market_cap=true&include_24hr_change=true&include_last_updated_at=true')
       .then((response: AxiosResponse) => {
-        console.clear();
-        // console.log('Response: ', response.data);
         setCoins(response.data);       
         setLoading(false);
       }) 

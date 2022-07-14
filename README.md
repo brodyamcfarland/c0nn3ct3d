@@ -4,15 +4,21 @@
 This is due to the Smart Contract Function "getTokenId" returns 0 when no token exists due to uints.
 
 ====================TO DO====================
+[] See if we can get images on Posts
+[] Follow / Unfollow
+[] Fix Liking
+[] Commenting Functionality
+[X] Show Posts by Pulling in from FB
 [X] Prevent Default on Submitting Post
-[X] Confirm how images should be saved in firebase (Storage!)
+[X] Confirm how images should be saved in firebase *Storage*
+[X] Need a unique ID for photo uploads *Timestamp*
 [] Added loggedIn state for showing online for future state
 [X] Make sure the photo button will allow you to add a post along with text inside of the text area or in a modal
 [X] Firebase will need an ID to Map to the tweets being stored, Map TokenId to Post ID? {TokenId!}
-[] set up firebase to connect to Posts and Images --Blockchain storage too expensive for mainnet
+[X] set up firebase to connect to Posts and Images --Blockchain storage too expensive for mainnet
 [] Search Button Needs to have some functionality in Widgets.tsx
-    - Maybe just ctrl+F the posts or look up users who have posts (we'll see)
-[X] Timestamps will be handled by Firebase? {YES}
+    - Maybe just ctrl+F the posts or look up users who have posts
+[X] Timestamps will be handled by Firebase? *Yes*
 
 ====================DESIGN====================
 
