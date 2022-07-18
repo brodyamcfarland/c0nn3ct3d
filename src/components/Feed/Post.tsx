@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import { FaRegComment } from 'react-icons/fa';
-import { AiOutlineHeart } from 'react-icons/ai';
+import { BiUpArrow, BiDownArrow } from 'react-icons/bi';
 import { RiDeleteBin7Line } from 'react-icons/ri';
-import { collection, deleteDoc, doc, onSnapshot, orderBy, query, setDoc } from "@firebase/firestore";
+import { collection, deleteDoc, doc, onSnapshot, orderBy, query, setDoc, where, getDocs, updateDoc } from "@firebase/firestore";
 import {db} from '../../backend/Firebase';
 
 interface Props {
@@ -15,38 +15,67 @@ interface Props {
 }
 
 const Post = ({username, bio, uri, loggedIn, tokenId, post}: Props) => {
+//==================================STATES===================================//
 
-  const [userLikes, setUserLikes] = useState<number>(0);
-  const [likes, setLikes] = useState<number>(0);
-  const [liked, setLiked] = useState<boolean>(false);
+  const [userVotes, setUserVotes] = useState<number>(0);
+  const [voted, setVoted] = useState<boolean>(false);
   const [comments, setComments] = useState<Array<string>>([]);
   const [posts, setPosts] = useState<Array<any>>([]);
-  
-  const handleLike = async () => {
-    //<----------- Add something here that updates the likes in Posts in FB
-    if (liked && loggedIn == true) {
-      setLiked(false);
-      setLikes(likes - 1);
-      setUserLikes(userLikes - 1);
-    } else if (loggedIn == true && userLikes < 1) {
-      setLikes(likes + 1);
-      setUserLikes(userLikes + 1);
-      setLiked(true);
-    }
-  }
 
+  const voteCap = 1;
+
+//================================UPVOTE & DOWNVOTE====================================//
+
+const handleUpVote = async () => {
+  if (!voted && userVotes < voteCap && username !== post.username) {
+    setUserVotes(userVotes + 1);
+    setVoted(true);
+    const updateField = { votes: post.votes + 1 };
+    const queryRef = collection(db, "Posts");
+    const q = query(queryRef, where("postId", "==", post.postId));
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach((doc)=>{
+      updateDoc(doc.ref, updateField);
+    });
+  }
+}
+
+const handleDownVote = async () => {
+  if (!voted && userVotes < voteCap && username !== post.username) {
+    setUserVotes(userVotes + 1);
+    setVoted(true);
+    const updateField = { votes: post.votes - 1 };
+    const queryRef = collection(db, "Posts");
+    const q = query(queryRef, where("postId", "==", post.postId));
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach((doc)=>{
+      updateDoc(doc.ref, updateField);
+    });
+  }
+}
+
+//==============================COMMENT POST================================//
   const handleComment = () => {
 
   }
+//===============================DELETE POST===============================//
 
-  const handleDelete = (e:any) => {
-    e.stopPropagation();
-    deleteDoc(doc(db, "Posts", ));// <------ Need to Figure out how to fetch which doc is deleted
+  const deletePost = async () => {
+    const queryRef = collection(db, "Posts");
+    const q = query(queryRef, where("postId", "==", post.postId));
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach((doc)=>{
+      deleteDoc(doc.ref);
+    });
   }
+
+//================================EDIT POST=================================//
 
   const handleEdit = () => {
     //Post Owner Only
   }
+
+//===================================JSX===================================================//
 
   return (
     <div className='flex flex-col'>
@@ -56,20 +85,22 @@ const Post = ({username, bio, uri, loggedIn, tokenId, post}: Props) => {
           <div>{post.username}</div>
           <div className='text-gray'>{post.bio}</div>
         </div>
-        {post?.image && (
-          <img
-          src={post?.image}
-          alt="postimage"
-          className='rounded-2xl max-h-[15rem] object-cover mr-2'
-         />
-        )}
-        <div className='ml-2 p-2 text-white bg-transparent flex-grow resize-none border border-gray-dark select-none rounded-xl max-h-8' >{post.text}</div>
+        <div className='flex flex-col justify-center items-center'>
+          <div className='ml-2 p-2 text-white bg-transparent flex-grow resize-none text-left select-none rounded-xl max-h-8' >{post.text}</div>
+          {post?.image && (
+            <img
+            src={post?.image}
+            alt="postimage"
+            className='rounded-2xl max-h-[20rem] object-cover mr-2 p-1'
+          />
+          )}
+        </div>
       </div>
       <div className='flex flex-row justify-end gap-5 pr-3 pb-1 pt-1 border-b-[1px] border-gray-dark align-middle place-items-center'>
       {username === post.username && (
         <span
         className='text-xl ease-in-out duration-700 hover:text-[#e6b11fae] text-[17px] cursor-pointer select-none'
-        onClick={handleDelete}
+        onClick={(e) => deletePost()}
         >
           <RiDeleteBin7Line className='text-xl'/>
         </span>
@@ -80,15 +111,28 @@ const Post = ({username, bio, uri, loggedIn, tokenId, post}: Props) => {
           >
           <FaRegComment className='text-xl'/>
         </span>
-        <span 
-          className='text-xl ease-in-out duration-700 hover:text-[#e61f1fae] flex flex-row cursor-pointer select-none place-items-center'
-          onClick={handleLike}
-        >
-        {post.likes > 0 && (
-          <span className='text-[12px] pr-[4px]'>{post.likes}</span>
+
+        {loggedIn && (
+          <div className='flex flex-row items-center'>
+            <span className='text-[12px] pr-[4px] select-none'>{post.votes}</span>
+          
+            <div className='flex flex-col'>
+              <span 
+                className='ease-in-out duration-700 hover:text-[#41c94cae] flex flex-row cursor-pointer select-none place-items-center'
+                onClick={handleUpVote}
+              >
+                  <BiUpArrow className='text-xl'/>
+                
+              </span>
+              <span 
+                className='ease-in-out duration-700 hover:text-[#c94141ae] flex flex-row cursor-pointer select-none place-items-center'
+                onClick={handleDownVote}
+              >
+                  <BiDownArrow className='text-xl'/>
+              </span>
+            </div>
+          </div>
         )}
-          <AiOutlineHeart className='text-2xl'/>
-        </span>
       </div>
     </div>
   )

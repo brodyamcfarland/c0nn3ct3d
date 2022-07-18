@@ -39,7 +39,6 @@ const Feed = ({account, username, bio, uri, loggedIn, tokenId}: Props) => {
     [db]
   );
   
-  
   return (
     <div className='flex-col w-3/5 overflow-y-scroll scrollbar-hide pb-8'>
           {loggedIn ? (
@@ -54,16 +53,16 @@ const Feed = ({account, username, bio, uri, loggedIn, tokenId}: Props) => {
             <div className='flex flex-row p-1 pt-3 pr-3 pl-3 place-items-center select-none pb-6 border-b-[1px] border-gray-dark'>
               <img className='bg-gray-dark border border-gray-dark select-none rounded-3xl w-7 h-7' alt='noprofilepic' src={noaccount}></img>
               <div className='bg-[#970f0f8e] rounded-2xl flex flex-col pl-1 pr-1 ml-1 w-[12rem]'>
-                <div className='text-center select-none'>Not Connected</div>
+                <div className='text-center select-none'>Logged Out</div>
                 <div className='text-gray select-none text-center '>Click "Connect" Button</div>
               </div>
               <textarea placeholder='Please make sure you are connected to Rinkeby Test Network and have minted your Soulbound Token!' className='ml-2 p-1 text-white bg-transparent flex-grow ease-in duration-200 resize-none border border-gray-dark rounded-xl scrollbar-hide overflow-y-none max-h-8 hover:bg-blackish' ></textarea>
             </div>
           )}
-          <div className='flex-1 overflow-auto scrollbar-hide'>
+          <div className={`flex-1 overflow-auto scrollbar-hide ${!loggedIn && "opacity-20"}`}>
           {posts.map((post: any) => (
             <Post
-              key={post.id}//<-----Key for mapping
+              key={post.postId}//<-----Key for mapping
               post={post.data()}//<---data() is needed to access the vars
               tokenId={tokenId}
               username={username}

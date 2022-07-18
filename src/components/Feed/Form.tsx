@@ -33,13 +33,12 @@ const Form = ({uri, username, bio, tokenId, UID}: Props) => {
             username: username,
             profilePic: uri,
             bio: bio,
-            likes: 0,
+            votes: 0,
             text: input,
             timestamp: serverTimestamp(),
       });
   //GENERATING RANDOM NUMBER FOR FILE STORAGE-------------
-      const timePost = Date.now().toString();
-      const imageRef = ref(storage, `Posts/${tokenId}/${timePost}`);//<---- This is what the file gets named
+      const imageRef = ref(storage, `Posts/${tokenId}/${UID}`);//<---- This is what the file gets named
 
       if (selectedFile) {
         await uploadString(imageRef, selectedFile, "data_url").then(async () => {
@@ -67,8 +66,7 @@ const Form = ({uri, username, bio, tokenId, UID}: Props) => {
     };
     
   return (
-    <form className={`bg-[#0E1111] ${
-        loading && "opacity-30"}`}>
+    <form className={`bg-[#0E1111] ${loading && "opacity-30"}`}>
         <div className='flex flex-row p-1 pt-3 pr-3 pl-3 place-items-center select-none'>
             <img className='bg-black border border-gray-dark rounded-full w-7 h-7' alt='profilepic' src={uri}></img>
             <div className='flex flex-col pl-1 w-[12rem]'>
@@ -125,4 +123,4 @@ const Form = ({uri, username, bio, tokenId, UID}: Props) => {
   )
 }
 
-export default Form
+export default Form;
