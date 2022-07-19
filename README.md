@@ -4,11 +4,10 @@
 This is due to the Smart Contract Function "getTokenId" returns 0 when no token exists due to uints.
 
 ====================TO DO====================
+[] More UI Tweaks
 [] Commenting Functionality
 [X] Fix Likes
-[] Follow / Unfollow
 [] Fix Soulbound Check Token ID --> It shows URI (easy fix) -- Add a must contain "ipfs://"
-[] Added loggedIn state for showing online for future state
 [] Search Button Needs to have some functionality in Widgets.tsx
     - Maybe just ctrl+F the posts or look up users who have posts
 [X] Fix Delete Button for Owners Posts 
@@ -26,11 +25,11 @@ This is due to the Smart Contract Function "getTokenId" returns 0 when no token 
 
 ====================DESIGN====================
 
-[] Work on Mobile Responsiveness - Ipad, Phone, Smaller Phone
+[X] Work on Mobile Responsiveness - Ipad, Phone, Smaller Phone
+[] Few more small tweaks before beta release
 
 ====================NICE TO HAVES====================
 
-[] Figure out to make only the middle column scroll
+[X] Figure out to make only the middle column scroll
 [X] Daily Sentiment up or down button *Fear and Greed*
-[] Make an animation where 003 shifts to full logo upon refresh
 

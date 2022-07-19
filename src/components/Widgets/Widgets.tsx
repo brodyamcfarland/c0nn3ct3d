@@ -21,9 +21,13 @@ const Widgets = ({contract}: Props) => {
   }, []);
 
   return (
-    <div className='flex flex-col w-1/5 p-3 border-l-[1px] border-gray-dark'>
+    <div className='
+      xxl:flex xxl:flex-col xxl:w-1/5 xxl:p-3
+      xl:flex xl:flex-col xl:w-1/5 xl:p-3
+      hidden
+    '>
         <form className='flex flex-row select-none'>
-          <button className='border border-gray-dark rounded-2xl pl-1 pr-1 pt-1 pb-1 mr-1 items-center select-none ease-in duration-200 hover:bg-gray-dark'><AiOutlineSearch/></button>
+          <button className='border border-gray-dark rounded-full pl-1 pr-1 pt-1 pb-1 mr-1 items-center select-none ease-in duration-200 hover:bg-gray-dark'><AiOutlineSearch/></button>
           <input className='text-white bg-transparent flex-grow ease-in pl-2 duration-200 resize-none border border-gray-dark rounded-2xl scrollbar-hide overflow-y-none max-h-8 hover:bg-blackish' placeholder='Search...'></input>
         </form>
         <div className='bg-blackish border border-gray-dark rounded-2xl p-2 mt-2'>

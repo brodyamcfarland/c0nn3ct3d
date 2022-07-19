@@ -40,7 +40,8 @@ const Feed = ({account, username, bio, uri, loggedIn, tokenId}: Props) => {
   );
   
   return (
-    <div className='flex-col w-3/5 overflow-y-scroll scrollbar-hide pb-8'>
+    <div className='flex-col xxl:w-3/5 xl:w-3/5 overflow-y-scroll scrollbar-hide pb-8 border-gray border-r-[1px] border-l-[1px]
+                    sm:ml-4 sm:mr-4'>
           {loggedIn ? (
             <Form
               tokenId={tokenId}
@@ -59,7 +60,7 @@ const Feed = ({account, username, bio, uri, loggedIn, tokenId}: Props) => {
               <textarea placeholder='Please make sure you are connected to Rinkeby Test Network and have minted your Soulbound Token!' className='ml-2 p-1 text-white bg-transparent flex-grow ease-in duration-200 resize-none border border-gray-dark rounded-xl scrollbar-hide overflow-y-none max-h-8 hover:bg-blackish' ></textarea>
             </div>
           )}
-          <div className={`flex-1 overflow-auto scrollbar-hide ${!loggedIn && "opacity-20"}`}>
+          <div className={`flex-1 overflow-auto scrollbar-hide ${!loggedIn && "opacity-5"}`}>
           {posts.map((post: any) => (
             <Post
               key={post.postId}//<-----Key for mapping

@@ -2,10 +2,11 @@ import React, {useEffect} from 'react'
 import { AiOutlineHome } from 'react-icons/ai';
 import { BiBell } from 'react-icons/bi';
 import { BiEnvelope } from 'react-icons/bi';
-import { RiCoinLine } from 'react-icons/ri';
+import { AiOutlineGithub } from 'react-icons/ai';
 import { GiSpikedHalo } from 'react-icons/gi';
 import ConnectButton from './ConnectButton';
 import { useState } from 'react';
+import DigiRain from '../../images/DigiRain.gif';
 
 interface Props {
   account: null | string;
@@ -81,32 +82,20 @@ const Sidebar = ({account, setAccount, setUri, setBio, setUsername, contract, to
 //====================================END======================================//
  
   return (
-    <div className='flex flex-col w-1/5 p-3 gap-3 border-r-[1px] border-gray-dark'>
-        <div className='text-4xl font-VT323 text-center select-none'>c0nn3ct3d</div>
-        <div className='flex flex-row border border-gray-dark p-1 rounded-2xl items-center ease-in duration-200 select-none cursor-pointer hover:bg-gray-dark'>
-          <span className='text-xl p-1'><AiOutlineHome/></span>
-          Home
+    <div className='flex flex-row xxl:flex-col xl:flex-col xxl:w-1/5 xl:w-1/5 xxl:p-3 xl:p-3 xxl:gap-3 xl:gap-3 border-gray-dark
+                    sm:max-h-8 sm:p-1 sm:m-1 sm:justify-between'>
+        <div className='text-center items-center justify-center'>
+          <span className='text-4xl font-VT323 text-center select-none'>c0nn3ct3d</span>
+          <span className='text-[#eb6161] m-1 bg-[#0c0c0c] p-1 font-VT323 rounded-lg select-none border border-gray-dark text-sm'>BETA</span>
         </div>
-        <div className='flex flex-row border border-gray-dark p-1 rounded-2xl items-center ease-in duration-200 select-none cursor-pointer hover:bg-gray-dark'>
-          <span className='text-xl p-1'><BiBell/></span>
-          Notifications
-        </div>
-        <div className='flex flex-row border border-gray-dark p-1 rounded-2xl items-center ease-in duration-200 select-none cursor-pointer hover:bg-gray-dark'>
-          <span className='text-xl p-1'><BiEnvelope/></span>
-          Messages
-        </div>
-        <div className='flex flex-row border border-gray-dark p-1 rounded-2xl items-center ease-in duration-200 select-none cursor-pointer hover:bg-gray-dark'>
-          <span className='text-xl p-1'><RiCoinLine/></span>
-          Profile
-        </div>
-        <div className='flex flex-row border border-gray-dark p-1 rounded-2xl items-center ease-in duration-200 select-none cursor-pointer hover:bg-gray-dark'>
-          <span className='text-xl p-1'><GiSpikedHalo/></span>
-          Soulbound
-        </div>
+        <img className='sm:hidden md:block opacity-80 max-h-[25rem] object-cover' src={DigiRain}/>
+        <a className='sm:hidden xxl:flex xl:flex flex-row border border-gray-dark p-2 rounded-2xl items-center ease-in duration-200 select-none cursor-pointer hover:bg-[#0E1111] hover:border-white' href='https://github.com/brodyamcfarland/c0nn3ct3d' target='_blank' rel="noreferrer"><AiOutlineGithub className='mr-2 text-2xl'/> Github</a>
+        <a className='sm:hidden xxl:flex xl:flex flex flex-row border border-gray-dark p-2 rounded-2xl items-center ease-in duration-200 select-none cursor-pointer hover:bg-[#0E1111] hover:border-white' href='hhttps://brodyamcfarland.github.io/Soulbound/' target='_blank' rel="noreferrer"><GiSpikedHalo className='mr-2 text-2xl'/> Soulbound</a>
         <div className='flex flex-row justify-center'>
             {isConnected ? (
-              <div className='flex flex-col max-w-[6rem] items-center'>
-                <span className='text-center select-none text-[12px] text-gray'>Account: {account}</span>
+              <div className='flex flex-row max-w-[6rem] items-center
+                              xxl:flex-col xl:flex-col sm:flex-col'>
+                <span className='sm:hidden md:hidden xl:block text-center select-none text-[12px] text-gray'>Account: {account}</span>
                 <button className='text-sm content-center mt-1 shadow-md shadow-gray border border-gray-dark rounded-2xl pl-1 select-none pr-1 hover:border-transparant hover:bg-[#2e2e2e] hover:shadow-inner hover:shadow-black' onClick={disconnect} >Disconnect</button>
                 {loggedIn && account ? (
                   <span className='text-[#58eb89] text-center select-none text-[12px] pt-1'>SOUL ID: {tokenId}</span>

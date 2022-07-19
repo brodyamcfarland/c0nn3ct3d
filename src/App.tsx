@@ -53,7 +53,9 @@ const App = () => {
   return (
     <>
       <div className='flex flex-col min-h-screen'>
-          <div className='flex flex-row bg-black text-white mb-auto flex-grow' >
+          <div className='flex xxl:flex-row xl:flex-row bg-black text-white mb-auto flex-grow
+                          flex-col' >
+                            
             <Sidebar
               account={account}
               setAccount={setAccount}
