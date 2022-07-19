@@ -1,7 +1,4 @@
 import React, {useEffect} from 'react'
-import { AiOutlineHome } from 'react-icons/ai';
-import { BiBell } from 'react-icons/bi';
-import { BiEnvelope } from 'react-icons/bi';
 import { AiOutlineGithub } from 'react-icons/ai';
 import { GiSpikedHalo } from 'react-icons/gi';
 import ConnectButton from './ConnectButton';
@@ -90,7 +87,7 @@ const Sidebar = ({account, setAccount, setUri, setBio, setUsername, contract, to
           <span className='text-4xl font-VT323 text-center select-none'>c0nn3ct3d</span>
           <span className='text-[#eb6161] m-1 bg-[#0c0c0c] p-1 font-VT323 rounded-lg select-none border border-gray-dark text-sm'>BETA</span>
         </div>
-        <img className='xsm:hidden md:block rounded-full opacity-80 max-h-[25rem] object-cover' src={DigiRain}/>
+        <img className='select-none xsm:hidden md:block rounded-full opacity-80 max-h-[25rem] object-cover' src={DigiRain}/>
         <a className='xsm:hidden xxl:flex xl:flex flex-row border border-gray-dark p-2 rounded-2xl items-center ease-in duration-200 select-none cursor-pointer hover:bg-[#0E1111] hover:border-white' href='https://github.com/brodyamcfarland/c0nn3ct3d' target='_blank' rel="noreferrer"><AiOutlineGithub className='mr-2 text-2xl'/> Github</a>
         <a className='xsm:hidden xxl:flex xl:flex flex flex-row border border-gray-dark p-2 rounded-2xl items-center ease-in duration-200 select-none cursor-pointer hover:bg-[#0E1111] hover:border-white' href='hhttps://brodyamcfarland.github.io/Soulbound/' target='_blank' rel="noreferrer"><GiSpikedHalo className='mr-2 text-2xl'/> Soulbound</a>
         <div className='flex flex-row justify-center'>

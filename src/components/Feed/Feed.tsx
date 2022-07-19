@@ -24,7 +24,7 @@ declare global {
 const Feed = ({account, username, bio, uri, loggedIn, tokenId}: Props) => {
 
 //========================STATES=========================//
-  const [posts, setPosts] = useState([]);
+  const [posts, setPosts] = useState<Array<any>>([]);
   const UID = Date.now().toString(); //<----Need this as a UID for images AND posts
 //=======================================================//
 
@@ -62,15 +62,17 @@ const Feed = ({account, username, bio, uri, loggedIn, tokenId}: Props) => {
           )}
           <div className={`flex-1 overflow-auto scrollbar-hide ${!loggedIn && "opacity-5"}`}>
           {posts.map((post: any) => (
-            <Post
-              key={post.postId}//<-----Key for mapping
-              post={post.data()}//<---data() is needed to access the vars
-              tokenId={tokenId}
-              username={username}
-              bio={bio}
-              uri={uri}
-              loggedIn={loggedIn}
-            />
+            <>
+              <Post
+                key={post.postId}//<-----Key for mapping
+                post={post.data()}//<---data() is needed to access the vars
+                tokenId={tokenId}
+                username={username}
+                bio={bio}
+                uri={uri}
+                loggedIn={loggedIn}
+              />
+            </>
           ))}
           </div>
     </div>

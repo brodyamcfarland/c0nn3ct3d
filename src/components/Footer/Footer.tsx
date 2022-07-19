@@ -14,9 +14,7 @@ const Footer : React.FC = () => {
     fetch('https://api.alternative.me/fng/')
       .then((response) => response.json())
       .then((json) => {
-        console.log(json.data[0]);
         setFearGreed(json.data[0]);
-        console.log("Fear and Greed Loaded.");
       })
   }
 //====================USE EFFECTS=======================//

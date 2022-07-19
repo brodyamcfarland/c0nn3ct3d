@@ -1,73 +1,71 @@
 import { useState } from 'react'
-// import { FaRegComment } from 'react-icons/fa';
 import { BiUpArrow, BiDownArrow } from 'react-icons/bi';
+import { FaRegComment } from 'react-icons/fa';
 import { RiDeleteBin7Line } from 'react-icons/ri';
-import { collection, deleteDoc, query, where, getDocs, updateDoc } from "@firebase/firestore";
+import { collection, deleteDoc, query, where, getDocs, updateDoc, addDoc, serverTimestamp } from "@firebase/firestore";
 import {db} from '../../backend/Firebase';
 
 interface Props {
-  username: string;
-  bio: string;
-  uri: string;
-  loggedIn: boolean;
-  tokenId: number | undefined;
-  post: any;
-}
+    loggedIn: boolean;
+    post: any;
+    username: string;
+    bio: string;
+    uri: string;
+  }
 
-const Post = ({username, bio, uri, loggedIn, tokenId, post}: Props) => {
+const Comment = ({loggedIn, post, username, bio, uri}: Props) => {
+
 //==================================STATES===================================//
 
-  const [userVotes, setUserVotes] = useState<number>(0);
-  const [voted, setVoted] = useState<boolean>(false);
-  const [comments, setComments] = useState<Array<string>>([]);
-  const [posts, setPosts] = useState<Array<any>>([]);
+    const [userCommentVotes, setUserCommentVotes] = useState<number>(0);
+    const [voted, setVoted] = useState<boolean>(false);
 
-  const voteCap = 1;
-  const convertTimeStamp = post?.timestamp?.toDate().toLocaleDateString();
+    const voteCap = 1;
 
 //================================UPVOTE & DOWNVOTE====================================//
 
-const handleUpVote = async () => {
-  if (!voted && userVotes < voteCap && username !== post.username) {
-    setUserVotes(userVotes + 1);
-    setVoted(true);
-    const updateField = { votes: post.votes + 1 };
-    const queryRef = collection(db, "Posts");
-    const q = query(queryRef, where("postId", "==", post.postId));
-    const querySnapshot = await getDocs(q);
-    querySnapshot.forEach((doc)=>{
-      updateDoc(doc.ref, updateField);
-    });
+    const handleUpVote = async () => {
+        if (!voted && userCommentVotes < voteCap) {
+        setUserCommentVotes(userCommentVotes + 1);
+        setVoted(true);
+        const updateField = { votes: post.votes + 1 };
+        const queryRef = collection(db, "Comments");
+        const q = query(queryRef, where("parentId", "==", post.postId));
+        const querySnapshot = await getDocs(q);
+        querySnapshot.forEach((doc)=>{
+            updateDoc(doc.ref, updateField);
+        });
+        }
+    }
+  
+  const handleDownVote = async () => {
+    if (!voted && userCommentVotes < voteCap) {
+      setUserCommentVotes(userCommentVotes + 1);
+      setVoted(true);
+      const updateField = { votes: post.votes - 1 };
+      const queryRef = collection(db, "Comments");
+      const q = query(queryRef, where("parentId", "==", post.postId));
+      const querySnapshot = await getDocs(q);
+      querySnapshot.forEach((doc)=>{
+        updateDoc(doc.ref, updateField);
+      });
+    }
   }
-}
+//==============================REPLY TO COMMENT================================//
+const handleReply = () => {
+    console.log("Bababoi");
 
-const handleDownVote = async () => {
-  if (!voted && userVotes < voteCap && username !== post.username) {
-    setUserVotes(userVotes + 1);
-    setVoted(true);
-    const updateField = { votes: post.votes - 1 };
-    const queryRef = collection(db, "Posts");
-    const q = query(queryRef, where("postId", "==", post.postId));
-    const querySnapshot = await getDocs(q);
-    querySnapshot.forEach((doc)=>{
-      updateDoc(doc.ref, updateField);
-    });
   }
-}
-
-//==============================COMMENT POST================================//
-  // const handleComment = () => {
-  // }
-//===============================DELETE POST===============================//
-  const deletePost = async () => {
-    const queryRef = collection(db, "Posts");
-    const q = query(queryRef, where("postId", "==", post.postId));
+//===============================DELETE COMMENT===============================//
+const deleteComment = async () => {
+    const queryRef = collection(db, "Comments");
+    const q = query(queryRef, where("parentId", "==", post.postId));
     const querySnapshot = await getDocs(q);
     querySnapshot.forEach((doc)=>{
       deleteDoc(doc.ref);
     });
   }
-//===================================JSX===================================================//
+//============================================================================//
 
   return (
     <div className='flex flex-col'>
@@ -76,7 +74,7 @@ const handleDownVote = async () => {
         <div className='flex flex-col pl-1 w-[12rem]'>
           <div>{post.username}</div>
           <div className='text-gray'>{post.bio}</div>
-          <div className='text-gray text-[12px]'>{convertTimeStamp}</div>
+          <div className='text-gray text-[12px]'></div>
         </div>
         <div className='flex flex-col justify-center items-center'>
           <div className='ml-2 p-2 text-white bg-transparent flex-grow resize-none text-left select-none rounded-xl max-h-8' >{post.text}</div>
@@ -90,20 +88,20 @@ const handleDownVote = async () => {
         </div>
       </div>
       <div className='flex flex-row justify-end gap-5 pr-3 pb-1 pt-1 border-b-[1px] border-gray-dark align-middle place-items-center'>
-      {username === post.username && (
+      {post.username && (
         <span
         className='text-xl ease-in-out duration-700 hover:text-[#e6b11fae] text-[17px] cursor-pointer select-none'
-        onClick={(e) => deletePost()}
+        onClick={(e) => deleteComment()}
         >
           <RiDeleteBin7Line className='text-xl'/>
         </span>
       )}
-        {/* <span
+        <span
           className='text-xl ease-in-out duration-700 hover:text-[#1fd9e6ae] text-[17px] cursor-pointer select-none'
-          onClick={handleComment}
+          onClick={handleReply}
           >
           <FaRegComment className='text-xl'/>
-        </span> */}
+        </span>
 
         {loggedIn && (
           <div className='flex flex-row items-center'>
@@ -131,4 +129,4 @@ const handleDownVote = async () => {
   )
 }
 
-export default Post
+export default Comment;
