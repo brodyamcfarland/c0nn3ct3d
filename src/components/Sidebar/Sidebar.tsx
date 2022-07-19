@@ -83,19 +83,21 @@ const Sidebar = ({account, setAccount, setUri, setBio, setUsername, contract, to
  
   return (
     <div className='flex flex-row xxl:flex-col xl:flex-col xxl:w-1/5 xl:w-1/5 xxl:p-3 xl:p-3 xxl:gap-3 xl:gap-3 border-gray-dark
-                    sm:max-h-8 sm:p-1 sm:m-1 sm:justify-between'>
+                    xsm:max-h-[5rem] xsm:pr-0 xsm:pl-000 xsm:p-1 xsm:justify-between xsm:border-b-[1px]
+                    sm:max-h-8 sm:pr-10 sm:pl-10 sm:p-2 sm:justify-between sm:border-b-[1px]
+                    md:max-h-8 md:pr-6 md:pl-6 md:p-1 xl:border-none'>
         <div className='text-center items-center justify-center'>
           <span className='text-4xl font-VT323 text-center select-none'>c0nn3ct3d</span>
           <span className='text-[#eb6161] m-1 bg-[#0c0c0c] p-1 font-VT323 rounded-lg select-none border border-gray-dark text-sm'>BETA</span>
         </div>
-        <img className='sm:hidden md:block opacity-80 max-h-[25rem] object-cover' src={DigiRain}/>
-        <a className='sm:hidden xxl:flex xl:flex flex-row border border-gray-dark p-2 rounded-2xl items-center ease-in duration-200 select-none cursor-pointer hover:bg-[#0E1111] hover:border-white' href='https://github.com/brodyamcfarland/c0nn3ct3d' target='_blank' rel="noreferrer"><AiOutlineGithub className='mr-2 text-2xl'/> Github</a>
-        <a className='sm:hidden xxl:flex xl:flex flex flex-row border border-gray-dark p-2 rounded-2xl items-center ease-in duration-200 select-none cursor-pointer hover:bg-[#0E1111] hover:border-white' href='hhttps://brodyamcfarland.github.io/Soulbound/' target='_blank' rel="noreferrer"><GiSpikedHalo className='mr-2 text-2xl'/> Soulbound</a>
+        <img className='xsm:hidden md:block rounded-full opacity-80 max-h-[25rem] object-cover' src={DigiRain}/>
+        <a className='xsm:hidden xxl:flex xl:flex flex-row border border-gray-dark p-2 rounded-2xl items-center ease-in duration-200 select-none cursor-pointer hover:bg-[#0E1111] hover:border-white' href='https://github.com/brodyamcfarland/c0nn3ct3d' target='_blank' rel="noreferrer"><AiOutlineGithub className='mr-2 text-2xl'/> Github</a>
+        <a className='xsm:hidden xxl:flex xl:flex flex flex-row border border-gray-dark p-2 rounded-2xl items-center ease-in duration-200 select-none cursor-pointer hover:bg-[#0E1111] hover:border-white' href='hhttps://brodyamcfarland.github.io/Soulbound/' target='_blank' rel="noreferrer"><GiSpikedHalo className='mr-2 text-2xl'/> Soulbound</a>
         <div className='flex flex-row justify-center'>
             {isConnected ? (
               <div className='flex flex-row max-w-[6rem] items-center
-                              xxl:flex-col xl:flex-col sm:flex-col'>
-                <span className='sm:hidden md:hidden xl:block text-center select-none text-[12px] text-gray'>Account: {account}</span>
+                              xxl:flex-col xl:flex-col xsm:flex-col'>
+                <span className='xsm:hidden md:hidden xl:block text-center select-none text-[12px] text-gray'>Account: {account}</span>
                 <button className='text-sm content-center mt-1 shadow-md shadow-gray border border-gray-dark rounded-2xl pl-1 select-none pr-1 hover:border-transparant hover:bg-[#2e2e2e] hover:shadow-inner hover:shadow-black' onClick={disconnect} >Disconnect</button>
                 {loggedIn && account ? (
                   <span className='text-[#58eb89] text-center select-none text-[12px] pt-1'>SOUL ID: {tokenId}</span>

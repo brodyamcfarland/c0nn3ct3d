@@ -41,7 +41,7 @@ const Feed = ({account, username, bio, uri, loggedIn, tokenId}: Props) => {
   
   return (
     <div className='flex-col xxl:w-3/5 xl:w-3/5 overflow-y-scroll scrollbar-hide pb-8 border-gray border-r-[1px] border-l-[1px]
-                    sm:ml-4 sm:mr-4'>
+                    xsm:ml-4 xsm:mr-4'>
           {loggedIn ? (
             <Form
               tokenId={tokenId}
