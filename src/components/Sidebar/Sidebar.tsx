@@ -89,7 +89,7 @@ const Sidebar = ({account, setAccount, setUri, setBio, setUsername, contract, to
         </div>
         <img className='select-none xsm:hidden md:block rounded-full opacity-80 max-h-[25rem] object-cover' src={DigiRain}/>
         <a className='xsm:hidden xxl:flex xl:flex flex-row border border-gray-dark p-2 rounded-2xl items-center ease-in duration-200 select-none cursor-pointer hover:bg-[#0E1111] hover:border-white' href='https://github.com/brodyamcfarland/c0nn3ct3d' target='_blank' rel="noreferrer"><AiOutlineGithub className='mr-2 text-2xl'/> Github</a>
-        <a className='xsm:hidden xxl:flex xl:flex flex flex-row border border-gray-dark p-2 rounded-2xl items-center ease-in duration-200 select-none cursor-pointer hover:bg-[#0E1111] hover:border-white' href='hhttps://brodyamcfarland.github.io/Soulbound/' target='_blank' rel="noreferrer"><GiSpikedHalo className='mr-2 text-2xl'/> Soulbound</a>
+        <a className='xsm:hidden xxl:flex xl:flex flex flex-row border border-gray-dark p-2 rounded-2xl items-center ease-in duration-200 select-none cursor-pointer hover:bg-[#0E1111] hover:border-white' href='https://brodyamcfarland.github.io/Soulbound/' target='_blank' rel="noreferrer"><GiSpikedHalo className='mr-2 text-2xl'/> Soulbound</a>
         <div className='flex flex-row justify-center'>
             {isConnected ? (
               <div className='flex flex-row max-w-[6rem] items-center
