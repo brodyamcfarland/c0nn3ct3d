@@ -2,14 +2,14 @@
 **IMPORTANT! Burn the first token in the contract since TokenId = 0 will cause problems in JS Logic**
 
 ## Tools
-React w/ Typescript
-Tailwind CSS
-Google Firebase
-Solidity
-React Icons
-Infura API
-Ethers.js
-Axios
+- React w/ Typescript
+- Tailwind CSS
+- Google Firebase
+- Solidity
+- React Icons
+- Infura API
+- Ethers.js
+- Axios
 
 ### Summary
 
